@@ -19,46 +19,36 @@ function getHumanChoice(){
 
 }
 
-
+const options = ["rock", "paper", "scissors"];
 
 function playRound(humanChoice, computerChoice){
 
     if (humanChoice === computerChoice)
-        return "it's a tie";
+        return `it's a tie \nYour Choice |${humanChoice} : ${computerChoice}|  Computer's Choice`;
     else if((humanChoice === "rock" && computerChoice === "scissors") || 
         (humanChoice === "paper" && computerChoice === "rock") ||
        (humanChoice === "scissors" && computerChoice === "paper")){
-        return "you win";
+        return `you win \nYour Choice |${humanChoice} : ${computerChoice}|  Computer's Choice`;
         
-    }else return "computer wins";
+    }else return `computer wins \nYour Choice |${humanChoice} : ${computerChoice}| Computer's Choice`;
 
 } 
 
+const container = document.querySelector("div");
 
-function playGame(){
+const rock = document.querySelector("#rock");
+rock.setAttribute("style","color: black; background: grey; border: 3px solid green");
+rock.addEventListener("click", function(event){displayMessage(playRound("rock",getComputerChoice()))});
 
-    let humanScore = 0
-    let computerScore = 0;
-    for (i = 0; i < 5; i++){
-        
-        console.log(`Round ${i + 1}`);
-        
+const paper = document.querySelector("#paper");
+paper.setAttribute("style","color: black; background: brown; border: 3px solid green");
+paper.addEventListener("click", function(event){displayMessage(playRound("paper",getComputerChoice()))});
 
-        let humanSelection = getHumanChoice();
-        let computerSelection = getComputerChoice();
-        result = playRound(humanSelection, computerSelection);
-        console.log(`human:${humanSelection} computer: ${computerSelection}`);
+const scissors = document.querySelector("#scissors");
+scissors.setAttribute("style","color: black; background: red; border: 3px solid green");
+scissors.addEventListener("click", function(event){displayMessage(playRound("scissors",getComputerChoice()))});
 
-        if(result === "you win")
-            humanScore++;
-        else if (result === "computer wins")
-            computerScore++;
-    }
-    if (humanScore > computerScore)
-        return console.log("you win the Games");
-    else if(humanScore < computerScore)
-        return console.log("The computer wins the games");
-    else return console.log("it's a tie");
-
+function displayMessage(message) {
+    const messageElement = document.querySelector("#gameMessages");
+    messageElement.textContent = message;
 }
-playGame();
